@@ -3,7 +3,6 @@
 
 #include "project.h"
 
-
 void accessTempFile(FILE *filePtr)
 {
     FILE *tempptr = NULL;
@@ -17,7 +16,7 @@ void createTempFile(char *message)
         exit(EXIT_FAILURE);
 
     strcat(message, "-");
-    strncpy(template, message, 16);
+    strncpy(template, message, INDEX);
     strcat(template, "XXXXXX");
 
     if((mkstemp(template)) < 0)
@@ -28,27 +27,29 @@ void createTempFile(char *message)
 
 int main(void)
 {
+    int i = 0;
     char *file = "file.txt";
     FILE *filePtr = NULL;
     char *message[INDEX];
 
     printf("Create A temp File\n");
 
-    printf("temp file name: ");
+    do {
+        printf("temp file name => ");
 
-    read(message, INDEX);
+        read(message, INDEX);
 
-    if((filePtr = fopen(file, "r")) == NULL)
-    {
-        printf("Cannot open file");
-        exit(EXIT_FAILURE);
-    }
+        if((filePtr = fopen(file, "r")) == NULL)
+        {
+            printf("Cannot open file");
+            exit(EXIT_FAILURE);
+        }
 
-    createTempFile(message);
+        createTempFile(message);
+        i++;
+    } while(i < 2);
 
     fclose(filePtr);
-
-    puts("Welcome");
 
     return 0;
 }
@@ -65,4 +66,7 @@ int main(void)
    c. Write a program that counts the file name of line in a text file.
 
    Have each program obtain the file name from the command line.
+
+
+   This program asks the user to enter a temp file name
  */
