@@ -40,18 +40,15 @@ void createTempFile(char *message)
     if((message[INDEX] = malloc(sizeof(char) * INDEX)) == NULL)
         exit(EXIT_FAILURE);
 
-    strncpy(buffer, "Something is working when I do this...\n", INDEX);
+    strncpy(buffer, "Something is working when I do this...", INDEX);
 
     strcat(message, "-");
     strncpy(template, message, INDEX);
     strcat(template, "XXXXXX");
 
-    // mkstemp generates a unique temporary filename
     fp = mkstemp(template);
 
     write(fp, buffer, sizeof(buffer));
-
-    //fileBuffering(fp);
 }
 
 int main(void)
@@ -68,20 +65,10 @@ int main(void)
 
         read(message, INDEX);
 
-/*
-        if((filePtr = fopen(file, "r")) == NULL)
-        {
-            printf("Cannot open file");
-            exit(EXIT_FAILURE);
-        }
-        */
-
-
         createTempFile(message);
+
         i++;
     } while(i < 2);
-
-    //fclose(filePtr);
 
     return 0;
 }
