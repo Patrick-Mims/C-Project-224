@@ -34,22 +34,3 @@ void read(char str[], int n)
         }
     }
 }
-
-/*
-int main(int argc, char **argv)
-{
-    int count = 0;
-    char *message[INDEX];
-
-    printf("Welcome\n");
-
-    do
-    {
-        printf("Enter word %d: ", count);
-        read(message, INDEX);
-        count++;
-    } while(count < SIZE);
-
-    return 0;
-}
-*/

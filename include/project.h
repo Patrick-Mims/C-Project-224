@@ -7,6 +7,7 @@
 
 void accessTempFile(FILE *);
 void createTempFile(char *);
+void fileBuffering(FILE *);
 void read(char [], int);
 
 #endif

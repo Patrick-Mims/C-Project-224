@@ -8,8 +8,17 @@
 // when a program writes output to a file, the data goes into a buffer first.
 void fileBuffering(FILE *filePtr)
 {
-    char buffer[INDEX]; // buffer address
-    setvbuf(filePtr, buffer, _IOFBF, INDEX); // full buffering, size N bytes 
+    /*
+       char buffer[INDEX]; // buffer address
+
+    // full buffering, size N bytes 
+    if((setvbuf(filePtr, buffer, _IOFBF, INDEX)) != 0)
+    {
+    printf("could not use setvbuf\n");
+    exit(EXIT_FAILURE);
+    }
+     */
+
     printf("File Buffering...\n"); // 
     // fflush(fp);
 }
@@ -22,26 +31,34 @@ void accessTempFile(FILE *filePtr)
 void createTempFile(char *message)
 {
     char *template[INDEX];
+    char *buffer[INDEX];
+    int fp;
+
+    memset(template, 0, sizeof(template));
+    memset(buffer, 0, sizeof(buffer));
 
     if((message[INDEX] = malloc(sizeof(char) * INDEX)) == NULL)
         exit(EXIT_FAILURE);
+
+    strncpy(buffer, "Something is working when I do this...\n", INDEX);
 
     strcat(message, "-");
     strncpy(template, message, INDEX);
     strcat(template, "XXXXXX");
 
     // mkstemp generates a unique temporary filename
-    if((mkstemp(template)) < 0)
-        exit(EXIT_FAILURE);
+    fp = mkstemp(template);
 
-    printf("=> %s\n", template);
+    write(fp, buffer, sizeof(buffer));
+
+    //fileBuffering(fp);
 }
 
 int main(void)
 {
     int i = 0;
-    char *file = "file.txt";
-    FILE *filePtr = NULL;
+    //char *file = "file.txt";
+    //FILE *filePtr = NULL;
     char *message[INDEX];
 
     printf("Create A temp File\n");
@@ -51,19 +68,20 @@ int main(void)
 
         read(message, INDEX);
 
+/*
         if((filePtr = fopen(file, "r")) == NULL)
         {
             printf("Cannot open file");
             exit(EXIT_FAILURE);
         }
+        */
 
-        fileBuffering(filePtr);
 
         createTempFile(message);
         i++;
     } while(i < 2);
 
-    fclose(filePtr);
+    //fclose(filePtr);
 
     return 0;
 }
