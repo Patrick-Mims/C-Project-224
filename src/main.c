@@ -34,6 +34,7 @@ void createTempFile(char *message)
     char *buffer[INDEX];
     int fp;
 
+    // memset is used to fill a block of memory with a value.
     memset(template, 0, sizeof(template));
     memset(buffer, 0, sizeof(buffer));
 
@@ -54,8 +55,6 @@ void createTempFile(char *message)
 int main(void)
 {
     int i = 0;
-    //char *file = "file.txt";
-    //FILE *filePtr = NULL;
     char *message[INDEX];
 
     printf("Create A temp File\n");
